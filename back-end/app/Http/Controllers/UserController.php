@@ -48,29 +48,37 @@ final class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-
+        try{
+            $user = $this->userService->store($request->validated());
+            return response()->json([
+                'message' => 'User has been created',
+                'data' => $user
+            ], 200);
+        }catch (\Exception $exception){
+            return response()->json(['error' => $exception->getMessage()]);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
     {
-        //
+        return response()->json(['data' => $user]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function edit(User $user)
     {
-        //
+        return response()->json(['data' => $user]);
     }
 
     /**
@@ -82,7 +90,15 @@ final class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-
+        try{
+            $user = $this->userService->update($request->validated(), $user);
+            return response()->json([
+                'message' => 'User has been created',
+                'data' => $user
+            ], 200);
+        }catch (\Exception $exception){
+            return response()->json(['error' => $exception->getMessage()]);
+        }
     }
 
     /**
