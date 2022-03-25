@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +18,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth')->middleware('api')->group(function () {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
+Route::group([
+    'middleware' => 'api'
+], function(Router $router){
+
+    $router->prefix('auth')->group(function (Router $router) {
+
+        $router->post('login', [AuthController::class, 'login']);
+        $router->post('logout', [AuthController::class, 'logout']);
+        $router->post('refresh', [AuthController::class, 'refresh']);
+
+    });
+
+
+    $router->resource('user', UserController::class);
+    $router->resource('role', RoleController::class);
+    $router->resource('permission', PermissionController::class);
+
+
 });
+
