@@ -18,10 +18,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request){
 
         if($token = Auth::attempt($request->validated())){
-            return response()->json([
-                'token' => $this->respondWithToken($token),
-                'error' => null,
-            ], 200);
+            return response()->json($this->respondWithToken($token), 200);
         }
 
         return response()->json([
@@ -49,10 +46,12 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
+        return [
             'access_token' => $token,
+            'user' => auth('api')->user(),
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
-        ]);
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
+            'error' => ''
+        ];
     }
 }
