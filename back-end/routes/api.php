@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -32,8 +33,9 @@ Route::group([
 
 
     $router->resource('user', UserController::class);
-    $router->resource('role', RoleController::class);
-    $router->resource('permission', PermissionController::class);
+    $router->resource('blog', BlogController::class);
+    $router->get('role', [RoleController::class, 'index']);
+    $router->get('permission', [PermissionController::class, 'index']);
 
 
 });
