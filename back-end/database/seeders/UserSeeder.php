@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::updateOrCreate([
+        $user = User::updateOrCreate([
             'email' => 'azeezmakhmudov@gmail.com'
         ],
         [
@@ -23,5 +25,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('kung-fu-panda'),
             'remember_token' => Str::random(50)
         ]);
+
+        $user->givePermissionTo(Permission::all()->pluck('name')->toArray());
+        $user->assignRole(Role::first());
     }
 }
