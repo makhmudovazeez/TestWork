@@ -1,20 +1,23 @@
 import Login from '@/pages/auth/Login'
 import Main from '@/pages/Main'
 import {createRouter, createWebHistory} from 'vue-router'
-import axios from 'axios'
+import authentication from '../middleware/authentication'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
 const routes = [
     {
         path: '/',
         name: 'main',
         component: Main,
+        meta: {
+            middleware: [authentication]
+        }
     },
     {
         path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        
     }
 ]
 

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         ],
         [
             'fullname' => 'Makhmudov Azizbek Qobiljon o`g`li',
-            'password' => bcrypt('kung-fu-panda'),
+            'password' => bcrypt('123'),
             'remember_token' => Str::random(50)
         ]);
 
