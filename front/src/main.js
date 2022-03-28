@@ -6,8 +6,8 @@ import router from './router'
 import store from './store/index'
 import axios from 'axios'
 import middleware from "@grafikri/vue-middleware"
+import "fontawesome"
 
-require('@/store/subscriber')
 
 const app = createApp(App)
 
